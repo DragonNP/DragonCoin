@@ -8,13 +8,15 @@ import static ru.dragonapps.dragoncoin.Store.close;
 class MainPanel extends JPanel {
 
     private JTextField scoreTextField;
-    private static int score = 0, automatically = 1223;
+    private static int score = 0, automatically = 0;
     private JButton clickButton;
     private JPanel store;
 
     MainPanel() {
         setBackground(new Color(204, 66, 59));
         setLayout(null);
+
+        new ConvertToObject();
 
         Runnable ConvertToJson = new ConvertToJson();
         Thread converter = new Thread(ConvertToJson, "Converter");
@@ -38,7 +40,7 @@ class MainPanel extends JPanel {
         storeButton.setContentAreaFilled(false);
         storeButton.setSize(64, 64);
         storeButton.setLocation(400 / 2 - 32, scoreTextField.getY() + 50 + 15);
-        storeButton.setIcon(new ImageIcon("storeIcon.png"));
+        storeButton.setIcon(new ImageIcon("res\\storeIcon.png"));
         storeButton.addActionListener(e -> {
             clickButton.setVisible(false);
             store.setVisible(true);
@@ -58,7 +60,7 @@ class MainPanel extends JPanel {
         clickButton.setContentAreaFilled(false);
         clickButton.setSize(256, 256); //542
         clickButton.setLocation(72, 600 - 256 - 40 - 42);
-        clickButton.setIcon(new ImageIcon("clickIcon.png"));
+        clickButton.setIcon(new ImageIcon("res\\clickIcon.png"));
         clickButton.addActionListener(e -> {
             score += 1;
             scoreTextField.setText(String.valueOf(score));
@@ -75,7 +77,6 @@ class MainPanel extends JPanel {
         add(clickButton);
         add(store);
 
-        new ConvertToObject();
         converter.start();
     }
 

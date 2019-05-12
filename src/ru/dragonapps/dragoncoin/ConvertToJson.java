@@ -19,7 +19,7 @@ public class ConvertToJson implements Runnable {
             Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             String json = GSON.toJson(toJson);
 
-            try (FileWriter writer = new FileWriter("data.json", false)) {
+            try (FileWriter writer = new FileWriter("res\\data.json", false)) {
                 writer.write(json);
                 writer.flush();
                 Thread.sleep(1000);

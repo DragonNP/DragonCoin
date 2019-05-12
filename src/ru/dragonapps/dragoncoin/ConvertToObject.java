@@ -14,7 +14,7 @@ class ConvertToObject {
         StringBuilder output = new StringBuilder();
         Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileReader reader = new FileReader("data.json")) {
+        try (FileReader reader = new FileReader("res\\data.json")) {
             int c;
             while ((c = reader.read()) != -1) output.append((char) c);
         } catch (IOException ex) {

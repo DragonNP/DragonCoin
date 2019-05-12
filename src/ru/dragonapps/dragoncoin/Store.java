@@ -16,7 +16,7 @@ class Store extends JPanel {
         close.setContentAreaFilled(false);
         close.setSize(32, 32);
         close.setLocation(400-32-18, 5);
-        close.setIcon(new ImageIcon("closeIcon.png"));
+        close.setIcon(new ImageIcon("res\\closeIcon.png"));
         add(close);
     }
 }
