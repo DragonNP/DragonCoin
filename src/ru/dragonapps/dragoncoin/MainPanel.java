@@ -5,20 +5,19 @@ import java.awt.*;
 
 import static ru.dragonapps.dragoncoin.Store.close;
 
-public class MainPanel extends JPanel {
+class MainPanel extends JPanel {
 
-    private JTextField scoreTextField, automaticScore;
-    private int score = 0;
-    private JButton clickButton, storeButton;
+    private JTextField scoreTextField;
+    private static int score = 0, automatically = 1223;
+    private JButton clickButton;
     private JPanel store;
-    private JsonConverter converter;
-    private int automatically = 1223;
 
-    public MainPanel() {
+    MainPanel() {
         setBackground(new Color(204, 66, 59));
         setLayout(null);
 
-        converter = new JsonConverter();
+        Runnable ConvertToJson = new ConvertToJson();
+        Thread converter = new Thread(ConvertToJson, "Converter");
 
         store = new Store();
         store.setSize(400, 600 / 2 + 50);
@@ -34,7 +33,7 @@ public class MainPanel extends JPanel {
         scoreTextField.setFont(new Font("FredokaOne-Regular", Font.PLAIN, 45));
         scoreTextField.setHorizontalAlignment(SwingConstants.CENTER);
 
-        storeButton = new JButton();
+        JButton storeButton = new JButton();
         storeButton.setBorder(BorderFactory.createEmptyBorder());
         storeButton.setContentAreaFilled(false);
         storeButton.setSize(64, 64);
@@ -45,10 +44,10 @@ public class MainPanel extends JPanel {
             store.setVisible(true);
         });
 
-        automaticScore = new JTextField("Скорость: " + automatically);
+        JTextField automaticScore = new JTextField("Скорость: " + automatically);
         automaticScore.setEditable(false);
         automaticScore.setSize(355, 38);
-        automaticScore.setLocation(5, storeButton.getY()+64+5);
+        automaticScore.setLocation(5, storeButton.getY() + 64 + 5);
         automaticScore.setBackground(new Color(204, 66, 59));
         automaticScore.setBorder(null);
         automaticScore.setFont(new Font("FredokaOne-Regular", Font.PLAIN, 35));
@@ -63,15 +62,36 @@ public class MainPanel extends JPanel {
         clickButton.addActionListener(e -> {
             score += 1;
             scoreTextField.setText(String.valueOf(score));
-            converter.toJson(score, automatically);
         });
 
-        close.addActionListener(e -> {store.setVisible(false); clickButton.setVisible(true);});
+        close.addActionListener(e -> {
+            store.setVisible(false);
+            clickButton.setVisible(true);
+        });
 
         add(scoreTextField);
         add(storeButton);
         add(automaticScore);
         add(clickButton);
         add(store);
+
+        new ConvertToObject();
+        converter.start();
+    }
+
+    static int getScore() {
+        return score;
+    }
+
+    static int getAutomatically() {
+        return automatically;
+    }
+
+    static void setScore(int score) {
+        MainPanel.score = score;
+    }
+
+    static void setAutomatically(int automatically) {
+        MainPanel.automatically = automatically;
     }
 }
