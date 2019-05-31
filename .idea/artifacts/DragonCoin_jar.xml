@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DragonCoin:jar">
+    <output-path>$PROJECT_DIR$/out/</output-path>
+    <root id="archive" name="DragonCoin.jar">
+      <element id="module-output" name="DragonCoin" />
+    </root>
+  </artifact>
+</component>
